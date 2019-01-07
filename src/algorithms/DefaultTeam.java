@@ -139,24 +139,25 @@ public class DefaultTeam {
 	// enveloppeConvexe: ArrayList<Point> --> ArrayList<Point>
 	// renvoie l'enveloppe convexe de la liste.
 	public ArrayList<Point> enveloppeConvexe(ArrayList<Point> points) {
-		if (points.size() < 3) {
-			return null;
+		if (points.size() < 4) {
+			return points;
 		}
 
 		/** Algorithme Graham **/
 
-		ArrayList<Point> filtre = triPixel(points);
-
-		for (int i = 0; i < filtre.size(); i++) {
-			Point p1 = filtre.get(i % filtre.size());
-			Point p2 = filtre.get((i + 1) % filtre.size());
-			Point p3 = filtre.get((i + 2) % filtre.size());
-			if (crossProduct(p1, p2, p1, p3) < 0)
-				filtre.remove((i + 1) % filtre.size());
-
-		}
-
-		return filtre;
+		ArrayList<Point> result = triPixel(points);
+        for (int i=1;i<result.size()+2;i++) {
+            Point p = result.get((i-1)%result.size());
+            Point q = result.get(i%result.size());
+            Point r = result.get((i+1)%(result.size()));
+            if (crossProduct(p,q,p,r)>0) {
+                result.remove(i%result.size());
+                if (i==2) i=1;
+                if (i>2) i-=2;
+            }
+        }
+        
+        return result;
 	}
 
 	/** Ajout pour tme **/
