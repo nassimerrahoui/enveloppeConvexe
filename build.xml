@@ -28,7 +28,7 @@
 
   <target name="dist" depends="init,clean"
         description="Generer la distribution" >
-    <!-- tout mettre dans l'archive -->
+    <!-- tout mettre dans larchive -->
     <jar basedir="." jarfile="../TME2_cpa_${DSTAMP}.jar"/>
   </target>
 
